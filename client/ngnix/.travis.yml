@@ -1,0 +1,14 @@
+sudo: required
+services:
+  - docker 
+before_install:
+  - docker build -t kanth77/react-test -f ./client/Dockerfile
+
+script:
+  - docker run -e CI=true kanth77/react-test npm test
+
+after_success:
+  - docker build -t kanth77/multi-client ./client
+  - docker build -t kanth77/multi-ngnix ./ngnix
+  - docker build -t kanth77/multi-server ./server
+  - docker build -t kanth77/multi-worker ./worker
