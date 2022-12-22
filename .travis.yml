@@ -12,3 +12,10 @@ after_success:
   - docker build -t kanth77/multi-ngnix ./ngnix
   - docker build -t kanth77/multi-server ./server
   - docker build -t kanth77/multi-worker ./worker
+  # login into docker CLI
+  -  echo "$DOCKER_PWD" | docker login -u "$DOCKER_ID" --password-s
+  #Take those images and push to dockerhub
+  - docker push kanth77/multi-client
+  - docker push kanth77/multi-ngnix
+  - docker push kanth77/multi-server
+  - docker push kanth77/multi-worker
